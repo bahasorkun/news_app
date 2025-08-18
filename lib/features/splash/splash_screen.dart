@@ -9,6 +9,18 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    super.initState();
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   if (!mounted) return; // widget hâlâ ekranda mı kontrol et
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (_) => const HomePage()),
+    //   );
+    // });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

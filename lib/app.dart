@@ -10,8 +10,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900
-        )
+        colorScheme: ColorScheme.light(primary: Colors.indigo),
+        useMaterial3: true,
       ),
       home: SplashScreen(),
     );
