@@ -57,20 +57,20 @@ class _HomeShellState extends State<HomeShell> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance),
-            label: "Finance",
+            label: "Finans",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.sports_soccer),
-            label: "Football",
+            label: "Futbol",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "News"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Haberler"),
           BottomNavigationBarItem(
             icon: Icon(Icons.cloud_outlined),
-            label: "Weather",
+            label: "Hava",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.location_pin),
-            label: "Pharmacy",
+            label: "Eczane",
           ),
         ],
       ),
