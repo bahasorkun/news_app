@@ -38,7 +38,7 @@ class _NewsPageState extends State<NewsPage> {
               final news = newsList[index];
               return ListTile(
                 title: Text(news.name),
-                subtitle: Text(news.description ?? ""),
+                subtitle: Text(news.description),
               );
             },
           );
