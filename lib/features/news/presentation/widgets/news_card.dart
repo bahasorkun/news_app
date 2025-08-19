@@ -23,28 +23,27 @@ class NewsCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Görsel
-            if ((news.image ?? " ").isNotEmpty)
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Image.network(
-                  news.image,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (c, w, progress) {
-                    if (progress == null) return w;
-                    return Center(
-                      child: Padding(
-                        padding: EdgeInsetsGeometry.all(16),
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
-                  errorBuilder: (c, e, s) => Container(
-                    color: Colors.grey[200],
-                    alignment: Alignment.center,
-                    child: Icon(Icons.image_not_supported_outlined),
-                  ),
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Image.network(
+                news.image,
+                fit: BoxFit.cover,
+                loadingBuilder: (c, w, progress) {
+                  if (progress == null) return w;
+                  return Center(
+                    child: Padding(
+                      padding: EdgeInsetsGeometry.all(16),
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+                errorBuilder: (c, e, s) => Container(
+                  color: Colors.grey[200],
+                  alignment: Alignment.center,
+                  child: Icon(Icons.image_not_supported_outlined),
                 ),
               ),
+            ),
             //İçerik
             Padding(
               padding: EdgeInsetsGeometry.fromLTRB(16, 16, 16, 8),
@@ -55,18 +54,18 @@ class NewsCard extends StatelessWidget {
                 ),
               ),
             ),
-            if ((news.description ?? '').isNotEmpty)
-              Padding(
-                padding: EdgeInsetsGeometry.fromLTRB(16, 0, 16, 12),
-                child: Text(
-                  news.description,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withAlpha(-1),
-                  ),
+
+            Padding(
+              padding: EdgeInsetsGeometry.fromLTRB(16, 0, 16, 12),
+              child: Text(
+                news.description,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurface.withAlpha(-1),
                 ),
               ),
+            ),
             //Kaynak Satırı
             Padding(
               padding: EdgeInsetsGeometry.fromLTRB(16, 0, 16, 14),
@@ -75,7 +74,7 @@ class NewsCard extends StatelessWidget {
                   Icon(Icons.public, size: 16),
                   SizedBox(width: 6),
                   Text(
-                    news.source ?? "Kaynak Yok",
+                    news.source,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: theme.colorScheme.onSurface.withAlpha(-1),
                     ),
