@@ -1,5 +1,5 @@
 class NewsModel {
-  final int key;
+  final String key;
   final String url;
   final String description;
   final String image;
@@ -17,7 +17,7 @@ class NewsModel {
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
-      key: json['key'] ?? 0,
+      key: json['key'] ?? " ",
       url: json["url"] ?? '',
       description: json['description'] ?? " ",
       image: json['image'] ?? " ",
