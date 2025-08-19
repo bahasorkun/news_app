@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/features/news/data/models/news_model.dart';
 import 'package:news_app/features/news/data/news_api.dart';
 
 class NewsPage extends StatefulWidget {
@@ -9,8 +10,40 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  late Future<List<NewsModel>> _newsFuture;
+  final _newsApi = NewsApi();
+
+  @override
+  void initState() {
+    super.initState();
+    _newsFuture = _newsApi.getNews();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("News"));
+    return FutureBuilder(
+      future: _newsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text("Hata : \${snapshot.error}"));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text("Hiç haber yok"));
+        } else {
+          final newsList = snapshot.data!;
+          return ListView.builder(
+            itemCount: newsList.length,
+            itemBuilder: (context, index) {
+              final news = newsList[index];
+              return ListTile(
+                title: Text(news.name),
+                subtitle: Text(news.description ?? ""),
+              );
+            },
+          );
+        }
+      },
+    );
   }
 }
