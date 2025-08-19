@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
 import 'package:news_app/features/news/data/news_api.dart';
+import 'package:news_app/features/news/presentation/widgets/news_card.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -36,9 +37,12 @@ class _NewsPageState extends State<NewsPage> {
             itemCount: newsList.length,
             itemBuilder: (context, index) {
               final news = newsList[index];
-              return ListTile(
-                title: Text(news.name),
-                subtitle: Text(news.description),
+              return NewsCard(
+                news: news,
+                onTap: () {
+                  //TODO Buradan detay sayfasına gidilecek
+                  
+                },
               );
             },
           );
