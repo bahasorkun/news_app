@@ -13,7 +13,7 @@ class HomeShell extends StatefulWidget {
 }
 
 class _HomeShellState extends State<HomeShell> {
-  final int _currentIndex = 0;
+  int _currentIndex = 2;
   final List<Widget> _pages = [
     FinancePage(),
     FootballPage(),
@@ -22,8 +22,58 @@ class _HomeShellState extends State<HomeShell> {
     PharmacyPage(),
   ];
 
+  final List<String> _titles = [
+    "Finans",
+    "Futbol",
+    "Haberler",
+    "Hava",
+    "Eczane",
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            // TODO : Drawer açma işlemi burada yapılacak
+          },
+          icon: Icon(Icons.menu, color: Colors.white),
+        ),
+        centerTitle: false,
+        title: Text(
+          _titles[_currentIndex],
+          style: TextStyle(color: Colors.white, fontSize: 28),
+        ),
+        backgroundColor: Colors.indigo,
+      ),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: (value) => setState(() {
+          _currentIndex = value;
+        }),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance),
+            label: "Finance",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sports_soccer),
+            label: "Football",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "News"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.cloud_outlined),
+            label: "Weather",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_pin),
+            label: "Pharmacy",
+          ),
+        ],
+      ),
+    );
   }
 }
