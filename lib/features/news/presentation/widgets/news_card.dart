@@ -13,9 +13,7 @@ class NewsCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
@@ -32,13 +30,13 @@ class NewsCard extends StatelessWidget {
                   if (progress == null) return w;
                   return Center(
                     child: Padding(
-                      padding: EdgeInsetsGeometry.all(16),
+                      padding: EdgeInsets.all(16),
                       child: CircularProgressIndicator(),
                     ),
                   );
                 },
                 errorBuilder: (c, e, s) => Container(
-                  color: Colors.grey[200],
+                  color: Colors.grey.shade200,
                   alignment: Alignment.center,
                   child: Icon(Icons.image_not_supported_outlined),
                 ),
@@ -56,19 +54,19 @@ class NewsCard extends StatelessWidget {
             ),
 
             Padding(
-              padding: EdgeInsetsGeometry.fromLTRB(16, 0, 16, 12),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
               child: Text(
                 news.description,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withAlpha(-1),
+                  color: theme.colorScheme.onSurface.withValues(alpha: .7),
                 ),
               ),
             ),
             //Kaynak Satırı
             Padding(
-              padding: EdgeInsetsGeometry.fromLTRB(16, 0, 16, 14),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 14),
               child: Row(
                 children: [
                   Icon(Icons.public, size: 16),
@@ -76,7 +74,7 @@ class NewsCard extends StatelessWidget {
                   Text(
                     news.source,
                     style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withAlpha(-1),
+                      color: theme.colorScheme.onSurface.withValues(alpha: .7),
                     ),
                   ),
                 ],
