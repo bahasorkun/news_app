@@ -70,7 +70,7 @@ class NewsCard extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(Icons.public, size: 16),
-                  SizedBox(width: 6),
+                  SizedBox(width: 8),
                   Text(
                     news.source,
                     style: theme.textTheme.labelMedium?.copyWith(
