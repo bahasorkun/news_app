@@ -41,7 +41,7 @@ class _NewsPageState extends State<NewsPage> {
               return NewsCard(
                 news: news,
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => NewsDetailPage()),
                   );

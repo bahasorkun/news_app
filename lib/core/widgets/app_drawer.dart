@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/presentation/pages/about_page.dart';
+import 'package:news_app/core/presentation/pages/home_shell.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -44,7 +46,12 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Ana Sayfa'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeShell()),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.settings),
@@ -54,7 +61,12 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.info_outline),
               title: Text('Hakkında'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutPage()),
+                );
+              },
             ),
             Divider(),
             SizedBox(height: 30),
