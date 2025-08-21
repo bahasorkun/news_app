@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
 import 'package:news_app/features/news/data/news_api.dart';
+import 'package:news_app/features/news/presentation/pages/news_detail_page.dart';
 import 'package:news_app/features/news/presentation/widgets/news_card.dart';
 
 class NewsPage extends StatefulWidget {
@@ -40,8 +41,10 @@ class _NewsPageState extends State<NewsPage> {
               return NewsCard(
                 news: news,
                 onTap: () {
-                  //TODO Buradan detay sayfasına gidilecek
-                  
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewsDetailPage()),
+                  );
                 },
               );
             },

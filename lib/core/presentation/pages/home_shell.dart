@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/widgets/app_appbar.dart';
+import 'package:news_app/core/widgets/app_drawer.dart';
 import 'package:news_app/features/finance/presentation/pages/finance_page.dart';
 import 'package:news_app/features/football/presentation/pages/football_page.dart';
 import 'package:news_app/features/news/presentation/pages/news_page.dart';
@@ -33,20 +35,8 @@ class _HomeShellState extends State<HomeShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            // TODO : Drawer açma işlemi burada yapılacak
-          },
-          icon: Icon(Icons.menu, color: Colors.white),
-        ),
-        centerTitle: false,
-        title: Text(
-          _titles[_currentIndex],
-          style: TextStyle(color: Colors.white, fontSize: 28),
-        ),
-        backgroundColor: Colors.indigo,
-      ),
+      appBar: AppAppbar(title: _titles[_currentIndex]),
+      drawer: AppDrawer(),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
