@@ -1,16 +1,60 @@
-# news_app
+# 📱 News App
 
-A new Flutter project.
+Bu proje, Flutter kullanılarak geliştirilmiş basit bir **haber uygulamasıdır**.  
+Amaç: API üzerinden farklı kategorilerde (finans, futbol, genel haberler, hava durumu, eczane vb.) güncel verileri çekmek, listelemek ve detay sayfalarında kullanıcıya sunmak. Uygulamanın amacı, tek bir mobil platform üzerinden günlük hayatla ilgili en temel bilgilere erişim sağlamaktır.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Özellikler
 
-A few resources to get you started if this is your first Flutter project:
+- 🌍 Güncel haberleri API üzerinden çekme
+- 📰 Haberleri listeleme (başlık, açıklama, görsel)
+- 📖 Haberin detay sayfasını görüntüleme
+- 🌓 Koyu/Açık tema desteği
+- 🌐 Çoklu dil desteği (TR / EN)
+- 📂 Temiz mimari yapısı:
+  - **core/** → ortak bileşenler (appBar, drawer vb.)
+  - **features/news/** → haberlerle ilgili katmanlar
+  - **data/** → API çağrıları, modeller
+  - **presentation/** → arayüz sayfaları
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📷 Ekran Görüntüleri
+
+> 📌 Örnek ekran görüntüleri buraya eklenebilir (news list, detail, drawer, settings)
+
+---
+
+## 🛠️ Kullanılan Teknolojiler
+
+- Flutter (Dart)
+- Dio (HTTP istekleri için)
+
+---
+
+## 📦 Kurulum
+
+1. Repoyu klonla:
+   ```bash
+   git clone https://github.com/bahasorkun/news_app.git
+   ```
+2. Proje dizinine gir:
+   ```bash
+   cd news_app
+   ```
+3. Paketleri yükle:
+   ```bash
+   flutter pub get
+   ```
+4. Uygulamayı çalıştır:
+   ```bash
+   flutter run
+   ```
+
+---
+
+## 👨‍💻 Geliştirici Notları
+
+Bu proje, staj sürecinde öğrenme amaçlı geliştirilmiştir.  
+Amaç sadece **haberleri listelemek değil**, aynı zamanda Flutter’ın mimari yapısını öğrenmektir.
