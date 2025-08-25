@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/features/weather/data/weather_api.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -9,30 +8,53 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  final _api = WeatherApi();
-  String city = "Elazig";
-  Future<void> _testWeather() async {
-    try {
-      final list = await _api.getWeather(city);
-      print("Toplam Gün : ${list.length}");
-      if (list.isNotEmpty) {
-        final t = list.first;
-        print(
-          "Bugün $city için hava durumu : ${t.date}, ${t.day},${t.status} , ${t.description} * ${t.degree} * Nem ${t.humidity}",
-        );
-      }
-    } catch (e) {
-      print("Hata: $e");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: _testWeather,
-        child: Text("Weather TEST"),
-      ),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.indigo.shade300, Colors.indigo.shade700],
+            ),
+          ),
+        ),
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Elazig",
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Şehir adını giriniz",
+                  hintStyle: TextStyle(color: Colors.white70),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white24,
+                ),
+                cursorColor: Colors.white,
+                
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
