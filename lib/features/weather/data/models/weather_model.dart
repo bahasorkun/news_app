@@ -7,11 +7,11 @@ class WeatherModel {
   final String icon;
   final String description;
   final String status;
-  final String degree;
-  final String min;
-  final String max;
-  final String night;
-  final String humidity;
+  final double degree;
+  final double min;
+  final double max;
+  final double night;
+  final double humidity;
 
   WeatherModel({
     required this.date,
@@ -41,18 +41,21 @@ class WeatherModel {
     };
   }
 
-  factory WeatherModel.fromMap(Map<String, dynamic> map) {
+  factory WeatherModel.fromMap(Map<String, dynamic> j) {
+    double d(v) =>
+        v is num ? v.toDouble() : double.tryParse(v?.toString() ?? '') ?? 0.0;
+
     return WeatherModel(
-      date: map['date'] ?? " ",
-      day: map['day'] ?? " ",
-      icon: map['icon'] ?? " ",
-      description: map['description'] ?? " ",
-      status: map['status'] ?? " ",
-      degree: map['degree'] ?? " ",
-      min: map['min'] ?? " ",
-      max: map['max'] ?? " ",
-      night: map['night'] ?? " ",
-      humidity: map['humidity'] ?? " ",
+      date: (j['date'] ?? '').toString(),
+      day: (j['day'] ?? '').toString(),
+      icon: (j['icon'] ?? '').toString(),
+      description: (j['description'] ?? '').toString(),
+      status: (j['status'] ?? '').toString(),
+      degree: d(j['degree']),
+      min: d(j['min']),
+      max: d(j['max']),
+      night: d(j['night']),
+      humidity: d(j['humidity']),
     );
   }
 
