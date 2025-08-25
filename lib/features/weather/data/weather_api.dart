@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:news_app/core/dio_client.dart';
 import 'package:news_app/features/weather/data/models/weather_model.dart';
@@ -10,7 +12,24 @@ class WeatherApi {
         'weather/getWeather',
         queryParameters: {'city': city, 'lang': "tr"},
       );
-      final list = (res.data['result'] as List?) ?? [];
+      dynamic data = res.data;
+      // Normalize data
+      if (data is String) {
+        // Try to parse as JSON
+        try {
+          data = jsonDecode(data);
+        } catch (_) {
+          data = {};
+        }
+      }
+      List<dynamic> list = [];
+      if (data is Map && data.containsKey('result')) {
+        if (data['result'] is List) {
+          list = data['result'];
+        }
+      } else if (data is List) {
+        list = data;
+      }
       return list
           .map((e) => WeatherModel.fromMap(e as Map<String, dynamic>))
           .toList();
