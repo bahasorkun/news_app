@@ -55,7 +55,12 @@ class _PharmacyPageState extends State<PharmacyPage> {
     if (!mounted) return;
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PharmacyResultPage()),
+      MaterialPageRoute(
+        builder: (context) => PharmacyResultPage(
+          city: _selectedCity!,
+          district: _selectedDistrict!,
+        ),
+      ),
     );
   }
 
