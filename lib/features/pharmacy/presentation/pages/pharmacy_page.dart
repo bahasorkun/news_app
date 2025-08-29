@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/pharmacy/data/pharmacy_api.dart';
+import 'package:news_app/features/pharmacy/presentation/pages/pharmacy_result.dart';
 import 'package:news_app/features/pharmacy/presentation/utils/input_decoration.dart';
 import 'package:news_app/features/pharmacy/presentation/widgets/labeled_card.dart';
 
@@ -51,17 +52,11 @@ class _PharmacyPageState extends State<PharmacyPage> {
       return;
     }
 
-    try {
-      final list = await _api.getDutyPharmacies(
-        city: _selectedCity!,
-        district: _selectedDistrict!,
-      );
-
-      // Şimdilik sadece sayıyı bildirelim; liste ekranını sonra yazacağız.
-      _showSnack('Bulunan eczane sayısı: ${list.length}');
-    } catch (e) {
-      _showSnack('Hata: $e');
-    }
+    if (!mounted) return;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PharmacyResultPage()),
+    );
   }
 
   void _showSnack(String msg) {
