@@ -136,19 +136,19 @@ class _PharmacyPageState extends State<PharmacyPage> {
                   child: ElevatedButton(
                     onPressed: _queryPharmacies,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFF9E9E),
+                      backgroundColor: Colors.indigo.shade400,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      elevation: 0,
+                      elevation: 5,
                     ),
                     child: const Text(
                       'SORGULA',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
-                        letterSpacing: 1.0,
+                        letterSpacing: 2.0,
                       ),
                     ),
                   ),
