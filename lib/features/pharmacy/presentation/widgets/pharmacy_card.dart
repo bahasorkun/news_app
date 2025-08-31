@@ -124,7 +124,6 @@ class _Row extends StatelessWidget {
               value,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: Colors.blueGrey.shade400,
-                decoration: TextDecoration.underline,
               ),
               overflow: TextOverflow.ellipsis,
             ),
