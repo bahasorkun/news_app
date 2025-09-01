@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:news_app/core/dio_client.dart';
 import 'package:news_app/features/finance/data/models/bist_index_model.dart';
+import 'package:news_app/features/finance/data/models/currency_model.dart';
 
 class FinanceApi {
   final Dio _dio = DioClient.instance.dio;
@@ -18,14 +19,6 @@ class FinanceApi {
       }
     }
     return data;
-  }
-
-  Map<String, dynamic> _unwrapResultMap(dynamic data) {
-    final d = _normalizedData(data);
-    if (d is Map && d['result'] is Map) {
-      return Map<String, dynamic>.from(d['result'] as Map);
-    }
-    return <String, dynamic>{};
   }
 
   /// BIST 100 Endeksi (borsaIstanbul)
@@ -52,6 +45,23 @@ class FinanceApi {
       throw Exception('Geçersiz yanıt');
     } catch (e) {
       throw Exception('getBistIndex failed: $e');
+    }
+  }
+
+  /// Döviz Kurları (allCurrency)
+  Future<List<CurrencyModel>> getCurrencies() async {
+    try {
+      final res = await _dio.get('economy/allCurrency');
+      final d = _normalizedData(res.data);
+      final list = (d is Map && d['result'] is List)
+          ? d['result'] as List
+          : const [];
+      return list
+          .whereType<Map>()
+          .map((e) => CurrencyModel.fromMap(Map<String, dynamic>.from(e)))
+          .toList();
+    } catch (e) {
+      throw Exception('getCurrencies failed: $e');
     }
   }
 }

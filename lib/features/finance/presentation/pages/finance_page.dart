@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/presentation/widgets/bist_index_section.dart';
+import 'package:news_app/features/finance/data/finance_api.dart';
+import 'package:news_app/features/finance/data/models/currency_model.dart';
+import 'package:news_app/features/finance/presentation/widgets/currency_rates_section.dart';
 
 class FinancePage extends StatefulWidget {
   const FinancePage({super.key});
@@ -22,7 +25,12 @@ class _FinancePageState extends State<FinancePage> {
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(16, 20, 16, 24),
-        children: [BistIndexSection(), SizedBox(height: 16)],
+        children: [
+          const BistIndexSection(),
+          const SizedBox(height: 16),
+          const CurrencyRatesSection(),
+          const SizedBox(height: 24),
+        ],
       ),
     );
   }
