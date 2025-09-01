@@ -31,10 +31,25 @@ class FinanceApi {
   /// BIST 100 Endeksi (borsaIstanbul)
   Future<BistIndexModel> getBistIndex() async {
     try {
-      final res = await _dio.get('/economy/borsaIstanbul');
-      final map = _unwrapResultMap(res.data);
-      if (map.isEmpty) throw Exception('BIST verisi alınamadı');
-      return BistIndexModel.fromMap(map);
+      final res = await _dio.get('economy/borsaIstanbul');
+
+      final d = _normalizedData(res.data);
+      if (d is Map) {
+        final result = d['result'];
+        if (result is Map) {
+          return BistIndexModel.fromMap(Map<String, dynamic>.from(result));
+        }
+        if (result is List && result.isNotEmpty) {
+          final first = result.first;
+          if (first is Map) {
+            return BistIndexModel.fromMap(Map<String, dynamic>.from(first));
+          }
+        }
+        final msg = d['message']?.toString() ?? 'BIST verisi alınamadı';
+        throw Exception(msg);
+      }
+
+      throw Exception('Geçersiz yanıt');
     } catch (e) {
       throw Exception('getBistIndex failed: $e');
     }
