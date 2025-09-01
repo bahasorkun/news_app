@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/presentation/widgets/bist_index_section.dart';
-import 'package:news_app/features/finance/data/finance_api.dart';
-import 'package:news_app/features/finance/data/models/currency_model.dart';
 import 'package:news_app/features/finance/presentation/widgets/currency_rates_section.dart';
 
 class FinancePage extends StatefulWidget {

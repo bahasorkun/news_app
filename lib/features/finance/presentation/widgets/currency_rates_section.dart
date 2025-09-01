@@ -21,7 +21,6 @@ class _CurrencyRatesSectionState extends State<CurrencyRatesSection> {
     _future = _api.getCurrencies();
   }
 
-  String _fmt(double v) => v.toStringAsFixed(4);
 
   @override
   Widget build(BuildContext context) {
