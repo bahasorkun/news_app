@@ -34,7 +34,6 @@ class _FinancePageState extends State<FinancePage> {
           const SizedBox(height: 24),
           const CryptoSection(),
           const SizedBox(height: 24),
-          
         ],
       ),
     );
