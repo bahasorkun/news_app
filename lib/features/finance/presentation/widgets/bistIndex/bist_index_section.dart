@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/bist_index_model.dart';
-import 'package:news_app/features/finance/presentation/widgets/bist_index_card.dart';
+import 'package:news_app/features/finance/presentation/widgets/bistIndex/bist_index_card.dart';
 
 class BistIndexSection extends StatefulWidget {
   const BistIndexSection({super.key});

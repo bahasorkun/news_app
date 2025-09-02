@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/currency_model.dart';
-import 'package:news_app/features/finance/presentation/widgets/currency_rate_tile.dart';
+import 'package:news_app/features/finance/presentation/widgets/currency/currency_rate_tile.dart';
 
 class CurrencyRatesSection extends StatefulWidget {
   const CurrencyRatesSection({super.key});

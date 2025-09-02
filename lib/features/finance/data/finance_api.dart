@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:news_app/core/dio_client.dart';
 import 'package:news_app/features/finance/data/models/bist_index_model.dart';
 import 'package:news_app/features/finance/data/models/currency_model.dart';
+import 'package:news_app/features/finance/data/models/gold_item_model.dart';
+import 'package:news_app/features/finance/data/models/silver_item_model.dart';
 
 class FinanceApi {
   final Dio _dio = DioClient.instance.dio;
@@ -62,6 +64,37 @@ class FinanceApi {
           .toList();
     } catch (e) {
       throw Exception('getCurrencies failed: $e');
+    }
+  }
+
+  ///Kıymetli Madenler Altın - ONS - Gümüş
+  Future<List<GoldItemModel>> getGoldPrices() async {
+    try {
+      final res = await _dio.get('economy/goldPrice');
+      final d = _normalizedData(res.data);
+      final list = (d is Map && d['result'] is List)
+          ? d['result'] as List
+          : const [];
+      return list
+          .whereType<Map>()
+          .map((e) => GoldItemModel.fromMap(Map<String, dynamic>.from(e)))
+          .toList();
+    } catch (e) {
+      throw Exception("getGoldPrices failed : $e");
+    }
+  }
+
+  Future<SilverItemModel> getSilverPrice() async {
+    try {
+      final res = await _dio.get('economy/silverPrice');
+      final d = _normalizedData(res.data);
+      if (d is Map && d['result '] is Map) {
+        final map = Map<String, dynamic>.from(d['result']);
+        return SilverItemModel.fromMap(map);
+      }
+      throw Exception("Geçersiz Yanıt");
+    } catch (e) {
+      throw Exception("getSilverPrice faile : $e");
     }
   }
 }
