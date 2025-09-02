@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/presentation/widgets/bistIndex/bist_index_section.dart';
 import 'package:news_app/features/finance/presentation/widgets/crypto/crypto_section.dart';
 import 'package:news_app/features/finance/presentation/widgets/currency/currency_rates_section.dart';
+import 'package:news_app/features/finance/presentation/widgets/emtia/emtia_section.dart';
 import 'package:news_app/features/finance/presentation/widgets/precious_metals/precious_metals_section.dart';
 
 class FinancePage extends StatefulWidget {
@@ -32,8 +33,10 @@ class _FinancePageState extends State<FinancePage> {
           const SizedBox(height: 24),
           const PreciousMetalsSection(),
           const SizedBox(height: 24),
+          const SizedBox(height: 24),
           const CryptoSection(),
           const SizedBox(height: 24),
+          const EmtiaSection(),
         ],
       ),
     );

@@ -7,6 +7,7 @@ import 'package:news_app/features/finance/data/models/currency_model.dart';
 import 'package:news_app/features/finance/data/models/gold_item_model.dart';
 import 'package:news_app/features/finance/data/models/silver_item_model.dart';
 import 'package:news_app/features/finance/data/models/crypto_model.dart';
+import 'package:news_app/features/finance/data/models/emtia_item_model.dart';
 
 class FinanceApi {
   final Dio _dio = DioClient.instance.dio;
@@ -118,6 +119,21 @@ class FinanceApi {
           .toList();
     } catch (e) {
       throw Exception('getCryptoTickers failed: $e');
+    }
+  }
+
+  /// Emtia Piyasası – /economy/emtia
+  Future<List<EmtiaItemModel>> getEmtiaItems() async {
+    try {
+      final res = await _dio.get('economy/emtia');
+      final d = _normalizedData(res.data);
+      final list = (d is Map && d['result'] is List) ? d['result'] as List : const [];
+      return list
+          .whereType<Map>()
+          .map((e) => EmtiaItemModel.fromMap(Map<String, dynamic>.from(e)))
+          .toList();
+    } catch (e) {
+      throw Exception('getEmtiaItems failed: $e');
     }
   }
 }
