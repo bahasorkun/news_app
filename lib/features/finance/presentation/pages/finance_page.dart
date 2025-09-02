@@ -30,6 +30,8 @@ class _FinancePageState extends State<FinancePage> {
           const CurrencyRatesSection(),
           const SizedBox(height: 24),
           const PreciousMetalsSection(),
+          const SizedBox(height: 24),
+          
         ],
       ),
     );
