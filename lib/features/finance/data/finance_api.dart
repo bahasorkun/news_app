@@ -53,7 +53,7 @@ class FinanceApi {
   /// Döviz Kurları (allCurrency)
   Future<List<CurrencyModel>> getCurrencies() async {
     try {
-      final res = await _dio.get('economy/allCurrency');
+      final res = await _dio.get('/economy/allCurrency');
       final d = _normalizedData(res.data);
       final list = (d is Map && d['result'] is List)
           ? d['result'] as List
@@ -67,7 +67,7 @@ class FinanceApi {
     }
   }
 
-  ///Kıymetli Madenler Altın - ONS - Gümüş
+  /// Kıymetli Madenler – Altın fiyatları (goldPrice)
   Future<List<GoldItemModel>> getGoldPrices() async {
     try {
       final res = await _dio.get('economy/goldPrice');
@@ -80,7 +80,7 @@ class FinanceApi {
           .map((e) => GoldItemModel.fromMap(Map<String, dynamic>.from(e)))
           .toList();
     } catch (e) {
-      throw Exception("getGoldPrices failed : $e");
+      throw Exception('getGoldPrices failed: $e');
     }
   }
 
@@ -88,13 +88,13 @@ class FinanceApi {
     try {
       final res = await _dio.get('economy/silverPrice');
       final d = _normalizedData(res.data);
-      if (d is Map && d['result '] is Map) {
-        final map = Map<String, dynamic>.from(d['result']);
+      if (d is Map && d['result'] is Map) {
+        final map = Map<String, dynamic>.from(d['result'] as Map);
         return SilverItemModel.fromMap(map);
       }
-      throw Exception("Geçersiz Yanıt");
+      throw Exception('Geçersiz yanıt');
     } catch (e) {
-      throw Exception("getSilverPrice faile : $e");
+      throw Exception('getSilverPrice failed: $e');
     }
   }
 }
