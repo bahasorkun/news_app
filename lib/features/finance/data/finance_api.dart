@@ -8,6 +8,7 @@ import 'package:news_app/features/finance/data/models/gold_item_model.dart';
 import 'package:news_app/features/finance/data/models/silver_item_model.dart';
 import 'package:news_app/features/finance/data/models/crypto_model.dart';
 import 'package:news_app/features/finance/data/models/emtia_item_model.dart';
+import 'package:news_app/features/finance/data/models/currency_to_all_model.dart';
 
 class FinanceApi {
   final Dio _dio = DioClient.instance.dio;
@@ -134,6 +135,26 @@ class FinanceApi {
           .toList();
     } catch (e) {
       throw Exception('getEmtiaItems failed: $e');
+    }
+  }
+
+  /// Döviz Dönüştürücü – /economy/currencyToAll
+  Future<CurrencyToAllResponse> getCurrencyToAll({
+    required String base,
+    required double amount,
+  }) async {
+    try {
+      final res = await _dio.get('economy/currencyToAll', queryParameters: {
+        'base': base,
+        'int': amount,
+      });
+      final d = _normalizedData(res.data);
+      if (d is Map) {
+        return CurrencyToAllResponse.fromMap(Map<String, dynamic>.from(d));
+      }
+      throw Exception('Geçersiz yanıt');
+    } catch (e) {
+      throw Exception('getCurrencyToAll failed: $e');
     }
   }
 }
