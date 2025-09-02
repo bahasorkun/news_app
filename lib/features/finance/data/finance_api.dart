@@ -109,7 +109,9 @@ class FinanceApi {
       // Gerekiyorsa burayı gerçek endpoint ile güncelleyin.
       final res = await _dio.get('economy/cripto');
       final d = _normalizedData(res.data);
-      final list = (d is Map && d['result'] is List) ? d['result'] as List : const [];
+      final list = (d is Map && d['result'] is List)
+          ? d['result'] as List
+          : const [];
       return list
           .whereType<Map>()
           .map((e) => CryptoModel.fromMap(Map<String, dynamic>.from(e)))
