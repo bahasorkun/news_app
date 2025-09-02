@@ -6,6 +6,7 @@ import 'package:news_app/features/finance/data/models/bist_index_model.dart';
 import 'package:news_app/features/finance/data/models/currency_model.dart';
 import 'package:news_app/features/finance/data/models/gold_item_model.dart';
 import 'package:news_app/features/finance/data/models/silver_item_model.dart';
+import 'package:news_app/features/finance/data/models/crypto_model.dart';
 
 class FinanceApi {
   final Dio _dio = DioClient.instance.dio;
@@ -95,6 +96,26 @@ class FinanceApi {
       throw Exception('Geçersiz yanıt');
     } catch (e) {
       throw Exception('getSilverPrice failed: $e');
+    }
+  }
+
+  /// Kripto Paralar – Top coins (esnek anahtar eşleşme)
+  ///
+  /// Not: Servis uç noktası projeye göre uyarlanabilir. Buradaki yöntem
+  /// response içinde `result` alanında bir liste bekler.
+  Future<List<CryptoModel>> getCryptoTickers() async {
+    try {
+      // Tahmini uç nokta: economy/crypto veya benzeri.
+      // Gerekiyorsa burayı gerçek endpoint ile güncelleyin.
+      final res = await _dio.get('economy/cripto');
+      final d = _normalizedData(res.data);
+      final list = (d is Map && d['result'] is List) ? d['result'] as List : const [];
+      return list
+          .whereType<Map>()
+          .map((e) => CryptoModel.fromMap(Map<String, dynamic>.from(e)))
+          .toList();
+    } catch (e) {
+      throw Exception('getCryptoTickers failed: $e');
     }
   }
 }

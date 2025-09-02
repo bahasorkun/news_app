@@ -21,7 +21,6 @@ class _CurrencyRatesSectionState extends State<CurrencyRatesSection> {
     _future = _api.getCurrencies();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -75,7 +74,10 @@ class _CurrencyRatesSectionState extends State<CurrencyRatesSection> {
                       onPressed: () => setState(() => _expanded = !_expanded),
                       child: Text(
                         _expanded ? 'Daha Az Göster <<' : 'Tümünü Göster >>',
-                        style: const TextStyle(fontWeight: FontWeight.w700),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.indigo,
+                        ),
                       ),
                     ),
                   ),
