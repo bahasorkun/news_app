@@ -10,6 +10,6 @@ class FootballPage extends StatefulWidget {
 class _FootballPageState extends State<FootballPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Football"),);
+    return Center(child: Text("Football"));
   }
 }

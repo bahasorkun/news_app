@@ -16,7 +16,10 @@ class CryptoModel {
     if (v is num) return v.toDouble();
     final s = v.toString().trim();
     // Remove percentage sign and spaces, normalize comma decimal
-    final cleaned = s.replaceAll('%', '').replaceAll(' ', '').replaceAll(',', '.');
+    final cleaned = s
+        .replaceAll('%', '')
+        .replaceAll(' ', '')
+        .replaceAll(',', '.');
     return double.tryParse(cleaned) ?? 0.0;
   }
 
@@ -24,7 +27,9 @@ class CryptoModel {
     // Try multiple common key variants to be resilient to API shapes
     final name = (m['name'] ?? m['coin'] ?? m['title'] ?? '').toString();
     final symbol = (m['symbol'] ?? m['code'] ?? m['ticker'] ?? '').toString();
-    final price = _toDouble(m['price_usd'] ?? m['priceUsd'] ?? m['price'] ?? m['usd']);
+    final price = _toDouble(
+      m['price_usd'] ?? m['priceUsd'] ?? m['price'] ?? m['usd'],
+    );
     final change = _toDouble(
       // Primary for this API: daily change percent
       m['changeDay'] ??
@@ -48,9 +53,9 @@ class CryptoModel {
   }
 
   Map<String, dynamic> toMap() => {
-        'name': name,
-        'symbol': symbol,
-        'price_usd': priceUsd,
-        'change_percent_24h': changePercent24h,
-      };
+    'name': name,
+    'symbol': symbol,
+    'price_usd': priceUsd,
+    'change_percent_24h': changePercent24h,
+  };
 }

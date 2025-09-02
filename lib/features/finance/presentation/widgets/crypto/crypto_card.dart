@@ -47,7 +47,10 @@ class CryptoCard extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -57,12 +60,12 @@ class CryptoCard extends StatelessWidget {
               children: [
                 Text(
                   _formatUsd(priceUsd),
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                const Text(
-                  'USD',
-                  style: TextStyle(color: Colors.grey),
-                ),
+                const Text('USD', style: TextStyle(color: Colors.grey)),
               ],
             ),
             const SizedBox(width: 12),
