@@ -204,8 +204,10 @@ class _CurrencyConverterSectionState extends State<CurrencyConverterSection> {
                     onPressed: _loading ? null : _convert,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      backgroundColor: Colors.pinkAccent,
-                      disabledBackgroundColor: Colors.pinkAccent.shade100,
+                      backgroundColor: Colors.indigo,
+                      disabledBackgroundColor: Colors.indigoAccent.shade100,
+                      foregroundColor: Colors.white,
+                      disabledForegroundColor: Colors.white70,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -288,10 +290,7 @@ class _SwapButton extends StatelessWidget {
       child: Container(
         height: 44,
         width: 44,
-        decoration: BoxDecoration(
-          color: Colors.pinkAccent,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: Colors.indigo, shape: BoxShape.circle),
         child: const Icon(Icons.swap_horiz, color: Colors.white),
       ),
     );
