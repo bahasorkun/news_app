@@ -294,8 +294,9 @@ class _GoalKingsTab extends StatelessWidget {
           return Center(child: Text('Hata: ${snapshot.error}'));
         }
         final list = snapshot.data ?? [];
-        if (list.isEmpty)
+        if (list.isEmpty) {
           return const Center(child: Text('Gol krallığı verisi yok'));
+        }
         return ListView.separated(
           padding: const EdgeInsets.all(16),
           itemCount: list.length,
