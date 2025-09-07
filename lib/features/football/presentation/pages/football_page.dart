@@ -27,7 +27,8 @@ class _FootballPageState extends State<FootballPage> {
   void initState() {
     super.initState();
     _leaguesFuture = _api.getLeagues();
-    _leaguesFuture!.then((leagues) {
+    _leaguesFuture!
+        .then((leagues) {
           if (!mounted || leagues.isEmpty) return;
           final defaultKey = leagues
               .firstWhere(
@@ -36,7 +37,8 @@ class _FootballPageState extends State<FootballPage> {
               )
               .key;
           _setLeague(defaultKey);
-        }).catchError((_) {}); // Hata UI'da gösterilecek
+        })
+        .catchError((_) {}); // Hata UI'da gösterilecek
   }
 
   void _setLeague(String leagueKey) {
