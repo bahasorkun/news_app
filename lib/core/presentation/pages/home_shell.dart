@@ -16,13 +16,6 @@ class HomeShell extends StatefulWidget {
 
 class _HomeShellState extends State<HomeShell> {
   int _currentIndex = 2;
-  final List<Widget> _pages = [
-    FinancePage(),
-    FootballPage(),
-    NewsPage(),
-    WeatherPage(),
-    PharmacyPage(),
-  ];
 
   final List<String> _titles = [
     "Finans",
@@ -32,12 +25,40 @@ class _HomeShellState extends State<HomeShell> {
     "Eczane",
   ];
 
+  final Map<int, Widget> _pageCache = {};
+
+  Widget _buildPage(int index) {
+    if (_pageCache.containsKey(index)) return _pageCache[index]!;
+    late final Widget page;
+    switch (index) {
+      case 0:
+        page = const FinancePage();
+        break;
+      case 1:
+        page = const FootballPage();
+        break;
+      case 2:
+        page = const NewsPage();
+        break;
+      case 3:
+        page = const WeatherPage();
+        break;
+      case 4:
+        page = const PharmacyPage();
+        break;
+      default:
+        page = const NewsPage();
+    }
+    _pageCache[index] = page;
+    return page;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppAppbar(title: _titles[_currentIndex]),
       drawer: AppDrawer(),
-      body: IndexedStack(index: _currentIndex, children: _pages),
+      body: _buildPage(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
