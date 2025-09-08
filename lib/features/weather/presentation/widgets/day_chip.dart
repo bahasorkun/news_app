@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/weather/data/models/weather_model.dart';
 import 'package:news_app/features/weather/presentation/utils/day_utils.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class DayChip extends StatelessWidget {
   const DayChip({super.key, required this.item});
@@ -57,9 +58,13 @@ class DayChip extends StatelessWidget {
             children: [
               const Icon(Icons.water_drop, color: Colors.white70, size: 18),
               const SizedBox(width: 4),
-              Text(
-                'Nem %${item.humidity.toStringAsFixed(0)}',
-                style: const TextStyle(color: Colors.white70, fontSize: 12),
+              Flexible(
+                child: Text(
+                  '${AppLocalizations.of(context).t('humidity')} %${item.humidity.toStringAsFixed(0)}',
+                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),

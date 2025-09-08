@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/bist_index_model.dart';
 import 'package:news_app/features/finance/presentation/widgets/bistIndex/bist_index_card.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class BistIndexSection extends StatefulWidget {
   const BistIndexSection({super.key});
@@ -33,7 +34,7 @@ class _BistIndexSectionState extends State<BistIndexSection> {
         }
         if (snap.hasError) {
           return _ErrorRetry(
-            message: 'BIST verisi alınamadı',
+            message: AppLocalizations.of(context).t('bistError'),
             onRetry: () => setState(() {
               _future = _api.getBistIndex();
             }),
@@ -64,7 +65,7 @@ class _ErrorRetry extends StatelessWidget {
             TextButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
-              label: const Text('Tekrar Dene'),
+              label: Text(AppLocalizations.of(context).t('retry')),
             ),
           ],
         ),

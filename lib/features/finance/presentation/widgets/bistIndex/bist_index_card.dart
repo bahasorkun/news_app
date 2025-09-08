@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/models/bist_index_model.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class BistIndexCard extends StatelessWidget {
   final BistIndexModel data;
@@ -21,7 +22,7 @@ class BistIndexCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'BIST 100 Endeksi',
+              AppLocalizations.of(context).t('bist100'),
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
@@ -67,14 +68,14 @@ class BistIndexCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Min: ${fmt(data.min)}',
+                  '${AppLocalizations.of(context).t('min')}: ${fmt(data.min)}',
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(color: Colors.black54),
                 ),
                 const Spacer(),
                 Text(
-                  'Max: ${fmt(data.max)}',
+                  '${AppLocalizations.of(context).t('max')}: ${fmt(data.max)}',
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(color: Colors.black54),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 import 'package:news_app/features/pharmacy/data/models/pharmacy_model.dart';
 
 class PharmacyCard extends StatelessWidget {
@@ -41,13 +42,14 @@ class PharmacyCard extends StatelessWidget {
             childrenPadding: EdgeInsets.fromLTRB(12, 0, 12, 16),
             children: [
               SizedBox(height: 4),
-              _Row("İlçe:", item.dist),
+              _Row(AppLocalizations.of(context).t('districtLabel'), item.dist),
               SizedBox(height: 4),
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 spacing: 8,
                 children: [
-                  Text("Telefon Numarası:", style: theme.textTheme.bodyMedium),
+                  Text(AppLocalizations.of(context).t('phoneNumber'),
+                      style: theme.textTheme.bodyMedium),
                   if (item.phone.trim().isNotEmpty)
                     InkWell(
                       onTap: onCall,
@@ -65,7 +67,8 @@ class PharmacyCard extends StatelessWidget {
               ),
               if (item.address.trim().isNotEmpty) ...[
                 SizedBox(height: 12),
-                Text("Adres:", style: theme.textTheme.bodyMedium),
+                Text(AppLocalizations.of(context).t('address'),
+                    style: theme.textTheme.bodyMedium),
                 SizedBox(height: 4),
                 Text(
                   item.address,
@@ -89,7 +92,7 @@ class PharmacyCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 22, vertical: 14),
                   ),
                   child: Text(
-                    "HARİTADA GÖSTER",
+                    AppLocalizations.of(context).t('showOnMap'),
                     style: TextStyle(
                       letterSpacing: 1.2,
                       fontWeight: FontWeight.w800,

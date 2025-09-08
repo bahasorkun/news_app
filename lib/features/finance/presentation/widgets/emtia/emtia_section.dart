@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/emtia_item_model.dart';
 import 'package:news_app/features/finance/presentation/widgets/emtia/emtia_card.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class EmtiaSection extends StatefulWidget {
   const EmtiaSection({super.key});
@@ -27,7 +28,7 @@ class _EmtiaSectionState extends State<EmtiaSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Emtia Piyasası',
+          AppLocalizations.of(context).t('commodityMarket'),
           style: Theme.of(context)
               .textTheme
               .headlineSmall
@@ -48,7 +49,7 @@ class _EmtiaSectionState extends State<EmtiaSection> {
                 children: [
                   const Icon(Icons.error_outline, color: Colors.red),
                   const SizedBox(width: 8),
-                  const Expanded(child: Text('Emtia verileri alınamadı')),
+                  Expanded(child: Text(AppLocalizations.of(context).t('commodityError'))),
                   TextButton.icon(
                     onPressed: () {
                       setState(() {
@@ -56,7 +57,7 @@ class _EmtiaSectionState extends State<EmtiaSection> {
                       });
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Tekrar Dene'),
+                    label: Text(AppLocalizations.of(context).t('retry')),
                   ),
                 ],
               );
@@ -64,9 +65,9 @@ class _EmtiaSectionState extends State<EmtiaSection> {
 
             final list = snap.data ?? const <EmtiaItemModel>[];
             if (list.isEmpty) {
-              return const Padding(
+              return Padding(
                 padding: EdgeInsets.symmetric(vertical: 12),
-                child: Text('Gösterilecek emtia bulunamadı'),
+                child: Text(AppLocalizations.of(context).t('noCommodities')),
               );
             }
 
@@ -86,7 +87,9 @@ class _EmtiaSectionState extends State<EmtiaSection> {
                     child: TextButton(
                       onPressed: () => setState(() => _expanded = !_expanded),
                       child: Text(
-                        _expanded ? 'Daha Az Göster <<' : 'Tümünü Göster >>',
+                        _expanded
+                            ? AppLocalizations.of(context).t('showLess')
+                            : AppLocalizations.of(context).t('showAll'),
                         style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.indigo,
@@ -102,4 +105,3 @@ class _EmtiaSectionState extends State<EmtiaSection> {
     );
   }
 }
-

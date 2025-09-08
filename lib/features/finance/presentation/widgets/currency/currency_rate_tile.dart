@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/models/currency_model.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class CurrencyRateTile extends StatelessWidget {
   final CurrencyModel item;
@@ -29,14 +30,14 @@ class CurrencyRateTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'Alış: ${_fmt(item.buying)}',
+                  '${AppLocalizations.of(context).t('buy')}: ${_fmt(item.buying)}',
                   style: Theme.of(
                     context,
                   ).textTheme.titleMedium?.copyWith(color: Colors.black45),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Satış: ${_fmt(item.selling)}',
+                  '${AppLocalizations.of(context).t('sell')}: ${_fmt(item.selling)}',
                   style: Theme.of(
                     context,
                   ).textTheme.titleMedium?.copyWith(color: Colors.black45),

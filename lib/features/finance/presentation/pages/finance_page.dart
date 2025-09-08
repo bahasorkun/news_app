@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 import 'package:news_app/features/finance/presentation/widgets/bistIndex/bist_index_section.dart';
 import 'package:news_app/features/finance/presentation/widgets/crypto/crypto_section.dart';
 import 'package:news_app/features/finance/presentation/widgets/currencyConverter/currency_converter_section.dart';
@@ -16,11 +17,12 @@ class FinancePage extends StatefulWidget {
 class _FinancePageState extends State<FinancePage> {
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 72,
         title: Text(
-          "Finans Piyasaları",
+          loc.t('financeMarkets'),
           style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,

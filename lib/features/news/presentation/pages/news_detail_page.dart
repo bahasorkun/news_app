@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:news_app/core/widgets/app_appbar.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 import 'package:news_app/core/widgets/app_drawer.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
 
@@ -15,8 +16,9 @@ class NewsDetailPage extends StatefulWidget {
 class _NewsDetailPageState extends State<NewsDetailPage> {
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppAppbar(title: "Haber Detayı"),
+      appBar: AppAppbar(title: loc.t('newsDetail')),
       drawer: AppDrawer(),
       body: ListView(
         padding: const EdgeInsets.all(16.0),

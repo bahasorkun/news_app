@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/currency_to_all_model.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class CurrencyConverterSection extends StatefulWidget {
   const CurrencyConverterSection({super.key});
@@ -87,7 +88,7 @@ class _CurrencyConverterSectionState extends State<CurrencyConverterSection> {
       setState(() => _result = item.calculated);
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = 'Döviz dönüşümü başarısız');
+      setState(() => _error = AppLocalizations.of(context).t('convertError'));
     } finally {
       if (!mounted) return;
       setState(() => _loading = false);
@@ -110,7 +111,7 @@ class _CurrencyConverterSectionState extends State<CurrencyConverterSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Döviz Dönüştürücü',
+          AppLocalizations.of(context).t('converter'),
           style: Theme.of(
             context,
           ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
@@ -126,9 +127,9 @@ class _CurrencyConverterSectionState extends State<CurrencyConverterSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Para Birimi Dönüştürücü',
-                  style: TextStyle(fontWeight: FontWeight.w700),
+                Text(
+                  AppLocalizations.of(context).t('converterSubtitle'),
+                  style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 12),
                 Row(
@@ -170,9 +171,9 @@ class _CurrencyConverterSectionState extends State<CurrencyConverterSection> {
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
                   ),
-                  decoration: const InputDecoration(
-                    hintText: 'Miktar',
-                    border: OutlineInputBorder(
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).t('amount'),
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                   ),
@@ -221,9 +222,9 @@ class _CurrencyConverterSectionState extends State<CurrencyConverterSection> {
                               color: Colors.white,
                             ),
                           )
-                        : const Text(
-                            'DÖNÜŞTÜR',
-                            style: TextStyle(fontWeight: FontWeight.w800),
+                        : Text(
+                            AppLocalizations.of(context).t('convert'),
+                            style: const TextStyle(fontWeight: FontWeight.w800),
                           ),
                   ),
                 ),

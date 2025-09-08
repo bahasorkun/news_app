@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/currency_model.dart';
 import 'package:news_app/features/finance/presentation/widgets/currency/currency_rate_tile.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class CurrencyRatesSection extends StatefulWidget {
   const CurrencyRatesSection({super.key});
@@ -27,7 +28,7 @@ class _CurrencyRatesSectionState extends State<CurrencyRatesSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Döviz Kurları',
+          AppLocalizations.of(context).t('exchangeRates'),
           style: Theme.of(
             context,
           ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
@@ -47,12 +48,12 @@ class _CurrencyRatesSectionState extends State<CurrencyRatesSection> {
                 children: [
                   const Icon(Icons.error_outline, color: Colors.red),
                   const SizedBox(width: 8),
-                  const Expanded(child: Text('Döviz verisi alınamadı')),
+                  Expanded(child: Text(AppLocalizations.of(context).t('currencyDataError'))),
                   TextButton.icon(
                     onPressed: () =>
                         setState(() => _future = _api.getCurrencies()),
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Tekrar Dene'),
+                    label: Text(AppLocalizations.of(context).t('retry')),
                   ),
                 ],
               );
@@ -73,7 +74,9 @@ class _CurrencyRatesSectionState extends State<CurrencyRatesSection> {
                     child: TextButton(
                       onPressed: () => setState(() => _expanded = !_expanded),
                       child: Text(
-                        _expanded ? 'Daha Az Göster <<' : 'Tümünü Göster >>',
+                        _expanded
+                            ? AppLocalizations.of(context).t('showLess')
+                            : AppLocalizations.of(context).t('showAll'),
                         style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.indigo,

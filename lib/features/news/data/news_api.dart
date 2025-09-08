@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:news_app/core/app_state.dart';
 import 'package:news_app/core/dio_client.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
 
@@ -6,15 +7,17 @@ class NewsApi {
   //Tek merkezden yönetilen dio
   final Dio _dio = DioClient.instance.dio;
   Future<List<NewsModel>> getNews({
-    String country = "tr",
+    String? country,
     String tag = "general",
     int paging = 0,
   }) async {
     try {
+      final lang = AppState.instance.locale?.languageCode;
+      final countryCode = country ?? (lang == 'en' ? 'en' : 'tr');
       final res = await _dio.get(
         'news/getNews',
         queryParameters: {
-          'country': country,
+          'country': countryCode,
           'tag': tag,
           'paging': paging.toString(),
         },

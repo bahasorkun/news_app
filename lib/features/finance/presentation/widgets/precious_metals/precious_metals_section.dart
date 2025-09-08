@@ -3,6 +3,7 @@ import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/gold_item_model.dart';
 import 'package:news_app/features/finance/data/models/silver_item_model.dart';
 import 'package:news_app/features/finance/presentation/widgets/precious_metals/precious_metals_card.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class PreciousMetalsSection extends StatefulWidget {
   const PreciousMetalsSection({super.key});
@@ -61,7 +62,7 @@ class _PreciousMetalsSectionState extends State<PreciousMetalsSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Kıymetli Madenler',
+          AppLocalizations.of(context).t('preciousMetals'),
           style: Theme.of(
             context,
           ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
@@ -81,9 +82,7 @@ class _PreciousMetalsSectionState extends State<PreciousMetalsSection> {
                 children: [
                   const Icon(Icons.error_outline, color: Colors.red),
                   const SizedBox(width: 8),
-                  const Expanded(
-                    child: Text('Kıymetli maden verileri alınamadı'),
-                  ),
+                  Expanded(child: Text(AppLocalizations.of(context).t('preciousMetalsError'))),
                   TextButton.icon(
                     onPressed: () {
                       setState(() {
@@ -91,7 +90,7 @@ class _PreciousMetalsSectionState extends State<PreciousMetalsSection> {
                       });
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Tekrar Dene'),
+                    label: Text(AppLocalizations.of(context).t('retry')),
                   ),
                 ],
               );
@@ -101,20 +100,21 @@ class _PreciousMetalsSectionState extends State<PreciousMetalsSection> {
             final pair = data.$1; // _GoldPair
             final silver = data.$2; // SilverItemModel
 
+            final loc = AppLocalizations.of(context);
             return Column(
               children: [
                 PreciousMetalsCard(
-                  title: 'Gram Altın',
+                  title: loc.t('gramGold'),
                   buy: pair.gram.buy,
                   sell: pair.gram.sell,
                 ),
                 PreciousMetalsCard(
-                  title: 'ONS Altın',
+                  title: loc.t('ounceGold'),
                   buy: pair.ons.buy,
                   sell: pair.ons.sell,
                 ),
                 PreciousMetalsCard(
-                  title: 'Gümüş',
+                  title: loc.t('silver'),
                   buy: silver.buying,
                   sell: silver.selling,
                 ),

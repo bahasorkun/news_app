@@ -6,11 +6,11 @@ import 'package:news_app/features/weather/data/models/weather_model.dart';
 
 class WeatherApi {
   final Dio _dio = DioClient.instance.dio;
-  Future<List<WeatherModel>> getWeather(String city) async {
+  Future<List<WeatherModel>> getWeather(String city, {String lang = 'tr'}) async {
     try {
       final res = await _dio.get(
         'weather/getWeather',
-        queryParameters: {'city': city, 'lang': "tr"},
+        queryParameters: {'city': city, 'lang': lang},
       );
       dynamic data = res.data;
       // Normalize data
@@ -34,9 +34,9 @@ class WeatherApi {
           .map((e) => WeatherModel.fromMap(e as Map<String, dynamic>))
           .toList();
     } on DioException catch (e) {
-      throw Exception("Hava durumu alınamadı : ${e.message}");
+      throw Exception(e.message ?? 'Weather request failed');
     } catch (e) {
-      throw Exception("Hava durumu alınamadı : $e");
+      throw Exception('Weather request failed: $e');
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 import 'package:news_app/features/football/data/football_api.dart';
 import 'package:news_app/features/football/data/models/goal_king_item.dart';
 import 'package:news_app/features/football/data/models/league_item.dart';
@@ -66,12 +67,17 @@ class _FootballPageState extends State<FootballPage> {
               });
             },
           ),
-          const TabBar(
-            tabs: [
-              Tab(text: 'Sonuçlar'),
-              Tab(text: 'Puan Durumu'),
-              Tab(text: 'Gol Krallığı'),
-            ],
+          Builder(
+            builder: (context) {
+              final loc = AppLocalizations.of(context);
+              return TabBar(
+                tabs: [
+                  Tab(text: loc.t('results')),
+                  Tab(text: loc.t('table')),
+                  Tab(text: loc.t('goalKings')),
+                ],
+              );
+            },
           ),
           Expanded(
             child: TabBarView(
@@ -121,6 +127,7 @@ class _LeagueSelector extends StatelessWidget {
         if (snapshot.hasError) {
           final err = snapshot.error.toString();
           final needsSubscription = err.toLowerCase().contains('subscription');
+          final loc = AppLocalizations.of(context);
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -128,14 +135,14 @@ class _LeagueSelector extends StatelessWidget {
               children: [
                 Text(
                   needsSubscription
-                      ? 'Futbol API aboneliği bulunamadı.'
-                      : 'Ligler yüklenemedi: $err',
+                      ? 'CollectAPI: Football API subscription not found.'
+                      : '${loc.t('error')}: $err',
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 8),
                 if (needsSubscription)
                   const Text(
-                    'CollectAPI hesabınızda Futbol API için (Ücretsiz Dene) ile abonelik başlatın ve tekrar deneyin.',
+                    'CollectAPI: enable Football API trial/subscription and retry.',
                   ),
                 const SizedBox(height: 8),
                 if (onRetry != null)
@@ -144,7 +151,7 @@ class _LeagueSelector extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: onRetry,
                       icon: const Icon(Icons.refresh),
-                      label: const Text('Tekrar Dene'),
+                      label: Text(loc.t('retry')),
                     ),
                   ),
               ],
@@ -153,17 +160,18 @@ class _LeagueSelector extends StatelessWidget {
         }
         final leagues = snapshot.data ?? [];
         if (leagues.isEmpty) {
-          return const Padding(
+          final loc = AppLocalizations.of(context);
+          return Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('Lig bulunamadı'),
+            child: Text(loc.t('noLeagues')),
           );
         }
         return Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
           child: DropdownButtonFormField<String>(
             value: selectedKey,
-            decoration: const InputDecoration(
-              labelText: 'Lig Seçin',
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context).t('selectLeague'),
               border: OutlineInputBorder(),
               isDense: true,
             ),
@@ -190,7 +198,9 @@ class _ResultsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (future == null) {
-      return const Center(child: Text('Lig seçiniz'));
+      return Center(
+        child: Text(AppLocalizations.of(context).t('selectLeague')),
+      );
     }
     return FutureBuilder<List<ResultItem>>(
       future: future,
@@ -199,10 +209,14 @@ class _ResultsTab extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Hata: ${snapshot.error}'));
+          final loc = AppLocalizations.of(context);
+          return Center(child: Text('${loc.t('error')}: ${snapshot.error}'));
         }
         final items = snapshot.data ?? [];
-        if (items.isEmpty) return const Center(child: Text('Sonuç bulunamadı'));
+        if (items.isEmpty)
+          return Center(
+            child: Text(AppLocalizations.of(context).t('noResults')),
+          );
         return ListView.separated(
           padding: const EdgeInsets.all(16),
           itemCount: items.length,
@@ -233,7 +247,10 @@ class _TableTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (future == null) return const Center(child: Text('Lig seçiniz'));
+    if (future == null)
+      return Center(
+        child: Text(AppLocalizations.of(context).t('selectLeague')),
+      );
     return FutureBuilder<List<StandingItem>>(
       future: future,
       builder: (context, snapshot) {
@@ -241,10 +258,12 @@ class _TableTab extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Hata: ${snapshot.error}'));
+          final loc = AppLocalizations.of(context);
+          return Center(child: Text('${loc.t('error')}: ${snapshot.error}'));
         }
         final table = snapshot.data ?? [];
-        if (table.isEmpty) return const Center(child: Text('Puan durumu yok'));
+        if (table.isEmpty)
+          return Center(child: Text(AppLocalizations.of(context).t('noTable')));
 
         return ListView.builder(
           padding: const EdgeInsets.all(8),
@@ -285,7 +304,10 @@ class _GoalKingsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (future == null) return const Center(child: Text('Lig seçiniz'));
+    if (future == null)
+      return Center(
+        child: Text(AppLocalizations.of(context).t('selectLeague')),
+      );
     return FutureBuilder<List<GoalKingItem>>(
       future: future,
       builder: (context, snapshot) {
@@ -293,11 +315,14 @@ class _GoalKingsTab extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text('Hata: ${snapshot.error}'));
+          final loc = AppLocalizations.of(context);
+          return Center(child: Text('${loc.t('error')}: ${snapshot.error}'));
         }
         final list = snapshot.data ?? [];
         if (list.isEmpty) {
-          return const Center(child: Text('Gol krallığı verisi yok'));
+          return Center(
+            child: Text(AppLocalizations.of(context).t('noGoalKings')),
+          );
         }
         return ListView.separated(
           padding: const EdgeInsets.all(16),

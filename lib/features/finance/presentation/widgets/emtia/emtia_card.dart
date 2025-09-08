@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class EmtiaCard extends StatelessWidget {
   final String name; // e.g., Kahve
@@ -48,7 +49,7 @@ class EmtiaCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'Satış: ${_formatUsdTr(sellingUsd)}',
+                  '${AppLocalizations.of(context).t('sell')}: ${_formatUsdTr(sellingUsd)}',
                   style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 const Text(

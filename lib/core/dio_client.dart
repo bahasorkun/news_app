@@ -10,12 +10,10 @@ class DioClient {
   late Dio dio;
 
   DioClient._internal() {
-    // API anahtarını 3 kaynaktan sırayla dene:
-    // 1) --dart-define=COLLECT_API_KEY
-    // 2) lib/core/env.dart içindeki collectApiKey
-    // 3) fallback (demo key)
-    const defineKey =
-        String.fromEnvironment('COLLECT_API_KEY', defaultValue: '');
+    const defineKey = String.fromEnvironment(
+      'COLLECT_API_KEY',
+      defaultValue: '',
+    );
     final fileKey = env.collectApiKey;
     final rawKey = defineKey.trim().isNotEmpty
         ? defineKey.trim()
@@ -23,7 +21,7 @@ class DioClient {
 
     final authHeader = rawKey.isNotEmpty
         ? (rawKey.startsWith('apikey') ? rawKey : 'apikey $rawKey')
-        : "apikey 3gpnNGf6HyBWZ7pa9QR2aW:32mE8jNwJhWoEddfkXXQA5"; // fallback
+        : "apikey 4NLnSMvWgKWrSsa2uXW4bn:0iiHz2E1atZf3wfR9dYYhP"; // fallback
 
     // Debug'da hangi key kaynağının kullanıldığını tek satır logla
     if (kDebugMode) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/features/finance/data/finance_api.dart';
 import 'package:news_app/features/finance/data/models/crypto_model.dart';
 import 'package:news_app/features/finance/presentation/widgets/crypto/crypto_card.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class CryptoSection extends StatefulWidget {
   const CryptoSection({super.key});
@@ -56,7 +57,7 @@ class _CryptoSectionState extends State<CryptoSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Kripto Paralar',
+          AppLocalizations.of(context).t('crypto'),
           style: Theme.of(
             context,
           ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
@@ -76,7 +77,7 @@ class _CryptoSectionState extends State<CryptoSection> {
                 children: [
                   const Icon(Icons.error_outline, color: Colors.red),
                   const SizedBox(width: 8),
-                  const Expanded(child: Text('Kripto verileri alınamadı')),
+                  Expanded(child: Text(AppLocalizations.of(context).t('cryptoError'))),
                   TextButton.icon(
                     onPressed: () {
                       // setState callback must be synchronous and return void.
@@ -86,7 +87,7 @@ class _CryptoSectionState extends State<CryptoSection> {
                       });
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Tekrar Dene'),
+                    label: Text(AppLocalizations.of(context).t('retry')),
                   ),
                 ],
               );
@@ -94,9 +95,9 @@ class _CryptoSectionState extends State<CryptoSection> {
 
             final original = snap.data ?? const <CryptoModel>[];
             if (original.isEmpty) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Text('Gösterilecek kripto bulunamadı'),
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Text(AppLocalizations.of(context).t('noCrypto')),
               );
             }
 
@@ -121,7 +122,9 @@ class _CryptoSectionState extends State<CryptoSection> {
                     child: TextButton(
                       onPressed: () => setState(() => _expanded = !_expanded),
                       child: Text(
-                        _expanded ? 'Daha Az Göster <<' : 'Tümünü Göster >>',
+                        _expanded
+                            ? AppLocalizations.of(context).t('showLess')
+                            : AppLocalizations.of(context).t('showAll'),
                         style: const TextStyle(
                           color: Colors.indigo,
                           fontWeight: FontWeight.w700,

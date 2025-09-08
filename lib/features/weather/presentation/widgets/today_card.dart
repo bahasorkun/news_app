@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/weather/data/models/weather_model.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class TodayCard extends StatelessWidget {
   const TodayCard({super.key, required this.item});
@@ -50,7 +51,7 @@ class TodayCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Max ${item.max.toStringAsFixed(0)}°  •  Min ${item.min.toStringAsFixed(0)}°',
+                      '${AppLocalizations.of(context).t('max')} ${item.max.toStringAsFixed(0)}°  •  ${AppLocalizations.of(context).t('min')} ${item.min.toStringAsFixed(0)}°',
                       style: const TextStyle(color: Colors.white70),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -64,7 +65,7 @@ class TodayCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          'Nem %${item.humidity.toStringAsFixed(0)}',
+                          '${AppLocalizations.of(context).t('humidity')} %${item.humidity.toStringAsFixed(0)}',
                           style: const TextStyle(color: Colors.white70),
                           overflow: TextOverflow.ellipsis,
                         ),

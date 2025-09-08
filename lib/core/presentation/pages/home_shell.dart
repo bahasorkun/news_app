@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 import 'package:news_app/core/widgets/app_appbar.dart';
 import 'package:news_app/core/widgets/app_drawer.dart';
 import 'package:news_app/features/finance/presentation/pages/finance_page.dart';
@@ -17,13 +18,13 @@ class HomeShell extends StatefulWidget {
 class _HomeShellState extends State<HomeShell> {
   int _currentIndex = 2;
 
-  final List<String> _titles = [
-    "Finans",
-    "Futbol",
-    "Haberler",
-    "Hava",
-    "Eczane",
-  ];
+  List<String> _titles(BuildContext context) => [
+        AppLocalizations.of(context).t('finance'),
+        AppLocalizations.of(context).t('football'),
+        AppLocalizations.of(context).t('news'),
+        AppLocalizations.of(context).t('weather'),
+        AppLocalizations.of(context).t('pharmacy'),
+      ];
 
   final Map<int, Widget> _pageCache = {};
 
@@ -55,8 +56,9 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
+    final titles = _titles(context);
     return Scaffold(
-      appBar: AppAppbar(title: _titles[_currentIndex]),
+      appBar: AppAppbar(title: titles[_currentIndex]),
       drawer: AppDrawer(),
       body: _buildPage(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
@@ -65,23 +67,26 @@ class _HomeShellState extends State<HomeShell> {
         onTap: (value) => setState(() {
           _currentIndex = value;
         }),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance),
-            label: "Finans",
+            icon: const Icon(Icons.account_balance),
+            label: AppLocalizations.of(context).t('finance'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.sports_soccer),
-            label: "Futbol",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Haberler"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cloud_outlined),
-            label: "Hava",
+            icon: const Icon(Icons.sports_soccer),
+            label: AppLocalizations.of(context).t('football'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.location_pin),
-            label: "Eczane",
+            icon: const Icon(Icons.home),
+            label: AppLocalizations.of(context).t('news'),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.cloud_outlined),
+            label: AppLocalizations.of(context).t('weather'),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.location_pin),
+            label: AppLocalizations.of(context).t('pharmacy'),
           ),
         ],
       ),

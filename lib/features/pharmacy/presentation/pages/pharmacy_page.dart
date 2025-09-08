@@ -3,6 +3,7 @@ import 'package:news_app/features/pharmacy/presentation/pages/pharmacy_result.da
 import 'package:news_app/features/pharmacy/presentation/utils/input_decoration.dart';
 import 'package:news_app/features/pharmacy/presentation/widgets/labeled_card.dart';
 import 'package:news_app/features/pharmacy/data/pharmacy_api.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class PharmacyPage extends StatefulWidget {
   const PharmacyPage({super.key});
@@ -107,12 +108,13 @@ class _PharmacyPageState extends State<PharmacyPage> {
   bool _loadingDistricts = false;
 
   Future<void> _queryPharmacies() async {
+    final loc = AppLocalizations.of(context);
     if (_selectedCity == null || _selectedCity!.isEmpty) {
-      _showSnack('Lütfen bir il seçin.');
+      _showSnack(loc.t('selectCity'));
       return;
     }
     if (_selectedDistrict == null || _selectedDistrict!.isEmpty) {
-      _showSnack('Lütfen bir ilçe seçin.');
+      _showSnack(loc.t('selectDistrict'));
       return;
     }
 
@@ -147,7 +149,8 @@ class _PharmacyPageState extends State<PharmacyPage> {
       });
     } catch (e) {
       setState(() => _loadingDistricts = false);
-      _showSnack('İlçeler yüklenemedi: $e');
+      final loc = AppLocalizations.of(context);
+      _showSnack('${loc.t('error')}: $e');
     }
   }
 
@@ -168,6 +171,7 @@ class _PharmacyPageState extends State<PharmacyPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final loc = AppLocalizations.of(context);
 
     return Stack(
       children: [
@@ -181,7 +185,7 @@ class _PharmacyPageState extends State<PharmacyPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Nöbetçi Eczaneler',
+                  loc.t('onCallPharmacies'),
                   style: theme.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -190,9 +194,9 @@ class _PharmacyPageState extends State<PharmacyPage> {
 
                 // İl kartı
                 LabeledCard(
-                  label: 'İl Seçimi *',
+                  label: loc.t('citySelection'),
                   child: DropdownButtonFormField<String>(
-                    decoration: inputDecoration('Bir il seçin'),
+                    decoration: inputDecoration(loc.t('selectCity')),
                     icon: const Icon(Icons.keyboard_arrow_down_rounded),
                     value: _selectedCity,
                     isExpanded: true,
@@ -226,7 +230,7 @@ class _PharmacyPageState extends State<PharmacyPage> {
 
                 // İlçe kartı (dinamik)
                 LabeledCard(
-                  label: 'İlçe Seçimi',
+                  label: loc.t('districtSelection'),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -234,8 +238,8 @@ class _PharmacyPageState extends State<PharmacyPage> {
                       DropdownButtonFormField<String>(
                         decoration: inputDecoration(
                           _selectedCity == null
-                              ? 'Önce il seçin'
-                              : 'Bir ilçe seçin',
+                              ? loc.t('selectCityFirst')
+                              : loc.t('selectDistrict'),
                         ),
                         icon: const Icon(Icons.keyboard_arrow_down_rounded),
                         value: _selectedDistrict,
@@ -278,9 +282,9 @@ class _PharmacyPageState extends State<PharmacyPage> {
                       ),
                       elevation: 5,
                     ),
-                    child: const Text(
-                      'SORGULA',
-                      style: TextStyle(
+                    child: Text(
+                      loc.t('search'),
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 2.0,

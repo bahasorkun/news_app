@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class PreciousMetalsCard extends StatelessWidget {
   final String title; // Gram Altın, ONS Altın, Gümüş
@@ -34,11 +35,11 @@ class PreciousMetalsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "Alış: ${buy.toStringAsFixed(2)}",
+                  "${AppLocalizations.of(context).t('buy')}: ${buy.toStringAsFixed(2)}",
                   style: TextStyle(color: Colors.grey[700]),
                 ),
                 Text(
-                  "Satış: ${sell.toStringAsFixed(2)}",
+                  "${AppLocalizations.of(context).t('sell')}: ${sell.toStringAsFixed(2)}",
                   style: TextStyle(color: Colors.grey[700]),
                 ),
               ],

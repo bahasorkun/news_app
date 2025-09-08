@@ -3,6 +3,7 @@ import 'package:news_app/features/weather/data/models/weather_model.dart';
 import 'package:news_app/features/weather/data/weather_api.dart';
 import 'package:news_app/features/weather/presentation/widgets/day_chip.dart';
 import 'package:news_app/features/weather/presentation/widgets/today_card.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -18,7 +19,7 @@ class _WeatherPageState extends State<WeatherPage> {
   List<WeatherModel> _items = [];
   bool _loading = false;
   String? _error;
-  String _cityTitle = 'Hava';
+  String? _cityTitle; // null => show localized default
 
   @override
   void dispose() {
@@ -36,10 +37,12 @@ class _WeatherPageState extends State<WeatherPage> {
       _cityTitle = query;
     });
     try {
-      final list = await _api.getWeather(query);
+      final lang = Localizations.localeOf(context).languageCode == 'en' ? 'en' : 'tr';
+      final list = await _api.getWeather(query, lang: lang);
       setState(() => _items = list);
     } catch (e) {
-      setState(() => _error = 'Hava durumu alınamadı: $e');
+      final loc = AppLocalizations.of(context);
+      setState(() => _error = '${loc.t('weatherError')}: $e');
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -47,6 +50,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Stack(
       children: [
         // background gradient
@@ -66,7 +70,7 @@ class _WeatherPageState extends State<WeatherPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _cityTitle,
+                  _cityTitle ?? loc.t('weather'),
                   style: const TextStyle(
                     fontSize: 28,
                     color: Colors.white,
@@ -79,7 +83,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   textInputAction: TextInputAction.search,
                   onSubmitted: _search,
                   decoration: InputDecoration(
-                    hintText: 'Şehir adını giriniz',
+                    hintText: loc.t('enterCity'),
                     hintStyle: const TextStyle(color: Colors.white70),
                     filled: true,
                     fillColor: Colors.white24,
@@ -123,10 +127,10 @@ class _WeatherPageState extends State<WeatherPage> {
       );
     }
     if (_items.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
-          'Hava durumu verisi alınamadı veya boş geldi.',
-          style: TextStyle(color: Colors.white70),
+          AppLocalizations.of(context).t('weatherEmpty'),
+          style: const TextStyle(color: Colors.white70),
           textAlign: TextAlign.center,
         ),
       );

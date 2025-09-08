@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 import 'package:news_app/core/presentation/pages/about_page.dart';
+import 'package:news_app/core/presentation/pages/settings_page.dart';
 import 'package:news_app/core/presentation/pages/home_shell.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -45,7 +47,7 @@ class AppDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.home),
-              title: Text('Ana Sayfa'),
+              title: Text(AppLocalizations.of(context).t('home')),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -55,12 +57,17 @@ class AppDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text('Ayarlar'),
-              onTap: () {},
+              title: Text(AppLocalizations.of(context).t('settings')),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SettingsPage()),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.info_outline),
-              title: Text('Hakkında'),
+              title: Text(AppLocalizations.of(context).t('about')),
               onTap: () {
                 Navigator.push(
                   context,
@@ -72,7 +79,7 @@ class AppDrawer extends StatelessWidget {
             SizedBox(height: 30),
             ListTile(
               leading: Icon(Icons.login),
-              title: Text("Giriş Yap"),
+              title: Text(AppLocalizations.of(context).t('login')),
               onTap: () {},
             ),
           ],

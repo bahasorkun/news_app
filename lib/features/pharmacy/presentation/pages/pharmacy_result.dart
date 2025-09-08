@@ -4,6 +4,7 @@ import 'package:news_app/features/pharmacy/data/models/pharmacy_model.dart';
 import 'package:news_app/features/pharmacy/data/pharmacy_api.dart';
 import 'package:news_app/features/pharmacy/presentation/widgets/pharmacy_card.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:news_app/core/l10n/app_localizations.dart';
 
 class PharmacyResultPage extends StatefulWidget {
   final String city;
@@ -80,12 +81,13 @@ class _PharmacyResultPageState extends State<PharmacyResultPage> {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       if (!mounted) return;
+      final loc = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Harita açılamadı"),
+          content: Text(loc.t('mapOpenFailed')),
           //Tekrar Dene butonunu ekledim.
           action: SnackBarAction(
-            label: "Tekrar Dene",
+            label: AppLocalizations.of(context).t('retry'),
             onPressed: () async {
               if (await canLaunchUrl(uri)) {
                 await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -106,20 +108,21 @@ class _PharmacyResultPageState extends State<PharmacyResultPage> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Arama Başlatılamadı")));
+      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).t('callFailed'))));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final loc = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.indigo.shade300,
         foregroundColor: Colors.white,
-        title: Text('Eczane', style: TextStyle(fontSize: 24)),
+        title: Text(loc.t('pharmacy'), style: TextStyle(fontSize: 24)),
       ),
       body: SafeArea(
         child: Padding(
@@ -132,7 +135,7 @@ class _PharmacyResultPageState extends State<PharmacyResultPage> {
                 child: OutlinedButton.icon(
                   onPressed: () => Navigator.pop(context),
                   label: Text(
-                    "Nöbetçi Eczane Sorgulama",
+                    loc.t('pharmacyQuery'),
                     style: TextStyle(color: Colors.indigo),
                   ),
                   icon: Icon(Icons.arrow_back, color: Colors.indigo),
@@ -146,7 +149,7 @@ class _PharmacyResultPageState extends State<PharmacyResultPage> {
               SizedBox(height: 16),
               Center(
                 child: Text(
-                  '${widget.city} - ${widget.district}\nNöbetçi Eczaneler ',
+                  '${widget.city} - ${widget.district}\n${loc.t('onCallPharmacies')} ',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.titleLarge?.copyWith(
                     color: Color(0xFFFF8E8E),
@@ -164,12 +167,12 @@ class _PharmacyResultPageState extends State<PharmacyResultPage> {
                     }
                     if (snapshot.hasError) {
                       return Center(
-                        child: Text("Birr hata oluştur : ${snapshot.error}"),
+                        child: Text('${loc.t('anErrorOccurred')}: ${snapshot.error}'),
                       );
                     }
                     final items = snapshot.data ?? [];
                     if (items.isEmpty) {
-                      return Center(child: Text("Kayıt Bulunamadı"));
+                      return Center(child: Text(loc.t('noRecords')));
                     }
                     return ListView.separated(
                       itemCount: items.length,
